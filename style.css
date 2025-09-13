@@ -1,0 +1,200 @@
+/* === Reset & Base === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0d0d0d;
+  color: #f5f5f5;
+  line-height: 1.5;
+}
+
+/* === Header === */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: #111;
+  border-bottom: 1px solid #222;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header .logo {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
+
+header input {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 25px;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  outline: none;
+  width: 220px;
+  transition: all 0.3s ease;
+}
+
+header input:focus {
+  border-color: #ffffff;
+  width: 260px;
+}
+
+header a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s;
+}
+
+header a:hover {
+  color: #fff;
+}
+
+/* === Galerie === */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 2rem;
+  margin-top: 5rem;
+}
+
+.poster {
+  position: relative;
+  border-radius: 0px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 0; /* référence pour le pseudo-élément */
+}
+
+.poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+/* Dégradé sombre au survol */
+.poster::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1; /* dégradé sous le titre */
+}
+
+/* Titre blanc en bas à gauche avec contour pour contraste */
+.poster .title {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  z-index: 2; /* titre au-dessus du dégradé */
+}
+
+/* Hover Effects */
+.poster:hover img {
+  transform: translateY(-10px);
+}
+
+.poster:hover::after {
+  opacity: 1;
+}
+
+.poster:hover .title {
+  opacity: 1;
+}
+
+/* === Modal (fiche affiches) === */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #111;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-content h2 {
+  margin: 1rem 0 0.5rem;
+  color: #ffffff;
+}
+
+.modal-content p {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.modal .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* === Responsive === */
+@media (max-width: 1024px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  header {
+    flex-direction: column;
+    gap: 0rem;
+    padding: 0;
+  }
+
+  header input {
+    width: 100%;
+    max-width: 300px;
+  }
+}
