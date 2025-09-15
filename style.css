@@ -15,9 +15,9 @@ body {
 /* === Header === */
 header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
   background: #111;
   border-bottom: 1px solid #222;
   position: sticky;
@@ -35,7 +35,7 @@ header input {
   background: #1a1a1a;
   border: 1px solid #333;
   border-radius: 25px;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 0.8rem;
   color: #fff;
   outline: none;
   width: 220px;
@@ -43,8 +43,18 @@ header input {
 }
 
 header input:focus {
-  border-color: #ffffff;
+  border-color: #fff;
   width: 260px;
+}
+
+.header-right a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.header-right a:hover {
+  color: #f0f0f0;
 }
 
 header a {
@@ -73,7 +83,7 @@ header a:hover {
   overflow: hidden;
   cursor: pointer;
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  z-index: 0; /* référence pour le pseudo-élément */
+  z-index: 0;
 }
 
 .poster img {
@@ -84,7 +94,6 @@ header a:hover {
   transition: transform 0.3s ease;
 }
 
-/* Dégradé sombre au survol */
 .poster::after {
   content: "";
   position: absolute;
@@ -95,10 +104,9 @@ header a:hover {
   background: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0));
   opacity: 0;
   transition: opacity 0.3s ease;
-  z-index: 1; /* dégradé sous le titre */
+  z-index: 1;
 }
 
-/* Titre blanc en bas à gauche avec contour pour contraste */
 .poster .title {
   position: absolute;
   bottom: 10px;
@@ -110,10 +118,9 @@ header a:hover {
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
-  z-index: 2; /* titre au-dessus du dégradé */
+  z-index: 2;
 }
 
-/* Hover Effects */
 .poster:hover img {
   transform: translateY(-10px);
 }
@@ -175,6 +182,7 @@ header a:hover {
   cursor: pointer;
 }
 
+
 /* === Responsive === */
 @media (max-width: 1024px) {
   .gallery {
@@ -187,14 +195,35 @@ header a:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* Header mobile : éléments alignés horizontalement */
   header {
-    flex-direction: column;
-    gap: 0rem;
-    padding: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.8rem;
   }
 
-  header input {
-    width: 100%;
-    max-width: 300px;
+  .header-left {
+    flex: 1;
+    order: 1;
+  }
+
+  .header-center {
+    flex: 2;
+    order: 2;
+    display: flex;
+    justify-content: center;
+  }
+
+  .header-center input {
+    width: 120px;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .header-right {
+    flex: 1;
+    order: 3;
+    display: flex;
+    justify-content: flex-start; /* Contact à gauche dans sa zone */
   }
 }
