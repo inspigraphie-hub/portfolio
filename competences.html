@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compétences | InspiGraphie</title>
+
+    <style>
+        @font-face {
+            font-family: "DonGraffiti";
+            /* Assure-toi que le fichier est bien nommé ainsi dans ton dossier fonts */
+            src: url("fonts/DonGraffiti.otf") format("opentype"),
+                 url("fonts/DonGraffiti.ttf") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ===== BODY ===== */
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            background-image: url("images/fond.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER GLASS (Sticky & Responsive) ===== */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(17, 17, 17, 0.8);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
+
+        .header-left img { width: 100px; height: auto; object-fit: contain; }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .logo-typo {
+            font-size: 3rem;
+            color: white;
+            font-family: "DonGraffiti", sans-serif;
+        }
+
+        /* Navigation Desktop */
+        .nav { display: flex; gap: 20px; }
+
+        .nav a {
+            text-decoration: none;
+            color: white;
+            opacity: 0.5;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .nav a:hover { opacity: 1; }
+
+        .nav a.active {
+            opacity: 1;
+            font-weight: bold;
+        }
+
+        .nav a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+        }
+
+        /* Style Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 2100;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: white;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ===== TITRE ===== */
+        .title-section {
+            text-align: center;
+            padding: 70px 20px 20px;
+        }
+
+        .title-section h1 { font-size: 2.8rem; margin-bottom: 10px; }
+        .title-section p { color: #aaa; }
+
+        /* ===== SECTION SKILLS ===== */
+        .skills {
+            max-width: 1200px;
+            margin: auto;
+            padding: 60px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+
+        /* ===== CARD GLASS ===== */
+        .skill-card {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 40px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: 0.35s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .skill-card img {
+            width: 150px; /* Taille réduite pour plus d'équilibre */
+            height: 150px;
+            object-fit: contain;
+        }
+
+        .skill-text h3 {
+            margin: 0 0 12px 0;
+            font-size: 2.2rem;
+        }
+
+        .skill-text p {
+            color: #bbb;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* ===== RESPONSIVE MOBILE / TABLETTE ===== */
+        @media (max-width: 950px) {
+            header { padding: 15px 25px; }
+            .header-center { position: static; transform: none; }
+            .header-center .logo-typo { font-size: 2rem; }
+
+            .hamburger { display: flex; }
+
+            .nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 100%;
+                height: 100vh;
+                background: rgba(17, 17, 17, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+                z-index: 2000;
+            }
+
+            .nav.open { right: 0; }
+            .nav a { font-size: 2rem; opacity: 0.8; }
+            .nav a.active::after { bottom: -10px; height: 4px; }
+
+            .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .hamburger.active span:nth-child(2) { opacity: 0; }
+            .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+            .skill-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+                padding: 30px;
+            }
+
+            .skill-card img { width: 100px; height: 100px; }
+            .skill-text h3 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-left">
+            <img src="logo.png" alt="Logo">
+        </div>
+
+        <div class="header-center">
+            <div class="logo-typo">InspiGraphie</div>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <nav class="nav" id="nav-menu">
+            <a href="index.html">Accueil</a>
+            <a href="projets.html">Projets</a>
+            <a href="competences.html" class="active">Compétences</a>
+            <a href="apropos.html">À propos</a>
+            <a href="services.html">Services</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="title-section">
+        <h1>Mes compétences</h1>
+        <p>Les logiciels et outils que j'utilise pour donner vie à vos projets</p>
+    </section>
+
+    <section class="skills">
+        <div class="skill-card">
+            <img src="images/photoshop.png" alt="Photoshop">
+            <div class="skill-text">
+                <h3>Adobe Photoshop</h3>
+                <p>Création d'affiches, photomontages et visuels pour les réseaux sociaux. Cela fait maintenant 3 ans que je l'utilise quotidiennement.</p>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <img src="images/illustrator.png" alt="Illustrator">
+            <div class="skill-text">
+                <h3>Adobe Illustrator</h3>
+                <p>Création de logos et d'illustrations vectorielles. Apprentissage approfondi depuis octobre 2025.</p>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <img src="images/indesign.png" alt="InDesign">
+            <div class="skill-text">
+                <h3>Adobe InDesign</h3>
+                <p>Mise en page de documents multipages, fusion de données et éditions print (brochures, catalogues).</p>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <img src="images/capcut.png" alt="CapCut">
+            <div class="skill-text">
+                <h3>CapCut</h3>
+                <p>Montage vidéo dynamique, titrage et création de contenus courts pour les formats Reels et TikTok.</p>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <img src="images/canva.png" alt="Canva">
+            <div class="skill-text">
+                <h3>Canva</h3>
+                <p>Conception rapide de supports visuels et digitaux efficaces pour la communication courante.</p>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <img src="images/codage.png" alt="HTML CSS">
+            <div class="skill-text">
+                <h3>HTML / CSS</h3>
+                <p>Conception et intégration d'interfaces web modernes. Compétences acquises en BUT Réseaux et Télécommunications (HTML, CSS, Python).</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('open');
+            });
+        });
+    </script>
+
+</body>
+</html>
