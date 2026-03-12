@@ -9,7 +9,6 @@
     <style>
         @font-face {
             font-family: "DonGraffiti";
-            /* Assure-toi que le fichier est bien nommé ainsi dans ton dossier fonts */
             src: url("fonts/DonGraffiti.otf") format("opentype"),
                  url("fonts/DonGraffiti.ttf") format("truetype");
             font-weight: normal;
@@ -71,12 +70,7 @@
             position: relative;
         }
 
-        .nav a:hover { opacity: 1; }
-
-        .nav a.active {
-            opacity: 1;
-            font-weight: bold;
-        }
+        .nav a:hover, .nav a.active { opacity: 1; }
 
         .nav a.active::after {
             content: "";
@@ -105,6 +99,18 @@
             background: white;
             border-radius: 2px;
             transition: 0.3s;
+        }
+
+        /* ===== ANIMATION DE FONDU (REVEAL) ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* ===== TITRE SECTION ===== */
@@ -246,14 +252,44 @@
             transform: translateX(8px);
         }
 
-        /* ===== RESPONSIVE MOBILE / TABLETTE ===== */
+       /* ===== RESPONSIVE MOBILE / TABLETTE ===== */
         @media (max-width: 950px) {
-            header { padding: 15px 25px; }
-            .header-center { position: static; transform: none; }
-            .header-center .logo-typo { font-size: 2rem; }
+            header { 
+                padding: 10px 20px; 
+                height: 70px; /* Hauteur fixe pour stabiliser le centrage */
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
 
-            .hamburger { display: flex; }
+            /* Réduction du logo pour libérer de l'espace */
+            .header-left img { 
+                width: 50px !important; 
+                height: auto;
+            }
 
+            /* CENTRAGE ABSOLU DU TITRE */
+            .header-center { 
+                position: absolute; 
+                left: 50%; 
+                top: 50%;
+                transform: translate(-50%, -50%); /* Centrage mathématique parfait */
+                width: auto;
+                z-index: 5;
+            }
+
+            .header-center .logo-typo { 
+                font-size: 1.8rem; /* Taille optimisée pour mobile */
+                white-space: nowrap;
+            }
+
+            .hamburger { 
+                display: flex; 
+                position: relative;
+                z-index: 2100;
+            }
+
+            /* Menu mobile */
             .nav {
                 position: fixed;
                 top: 0;
@@ -278,6 +314,17 @@
             .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+            /* Ajustements du contenu Services pour mobile */
+            .title-section { padding: 60px 20px 30px; }
+            .title-section h1 { font-size: 2.2rem; }
+            .services-container { padding: 0 20px 60px; gap: 30px; }
+        }
+
+        /* Correction pour les écrans très étroits (ex: iPhone SE) */
+        @media (max-width: 400px) {
+            .header-left { display: none; } /* On cache le logo pour laisser toute la place au titre */
+            .header-center .logo-typo { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -313,7 +360,7 @@
 
     <section class="services-container">
 
-        <div class="service-card">
+        <div class="service-card reveal">
             <div class="card-preview">
                 <img src="images/bun_drop.png" alt="Aperçu Identité">
             </div>
@@ -324,7 +371,7 @@
             </div>
         </div>
 
-        <div class="service-card">
+        <div class="service-card reveal">
             <div class="card-preview">
                 <img src="images/CarteVisite.jpg" alt="Aperçu Print">
             </div>
@@ -335,7 +382,7 @@
             </div>
         </div>
 
-        <div class="service-card">
+        <div class="service-card reveal">
             <div class="card-preview">
                 <img src="images/croowkies.png" alt="Aperçu Vidéo">
             </div>
@@ -348,7 +395,7 @@
 
     </section>
 
-    <div class="more-projects-container">
+    <div class="more-projects-container reveal">
         <a href="projets.html" class="btn-more-projects">
             Voir mes réalisations
             <span class="arrow">→</span>
@@ -356,20 +403,38 @@
     </div>
 
     <script>
+        // --- GESTION DU MENU HAMBURGER ---
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
 
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('open');
+            document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : 'auto';
         });
 
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
             });
         });
+
+        // --- ANIMATION REVEAL AU SCROLL (FONDU) ---
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Délai progressif (cascade) pour les cartes visibles
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 150);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     </script>
 
 </body>

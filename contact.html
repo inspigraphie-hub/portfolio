@@ -6,14 +6,13 @@
   <title>Contact | InspiGraphie</title>
   <style>
     @font-face {
-            font-family: "DonGraffiti";
-            /* Assure-toi que le fichier est bien nommé ainsi dans ton dossier fonts */
-            src: url("fonts/DonGraffiti.otf") format("opentype"),
-                 url("fonts/DonGraffiti.ttf") format("truetype");
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
+        font-family: "DonGraffiti";
+        src: url("fonts/DonGraffiti.otf") format("opentype"),
+             url("fonts/DonGraffiti.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+    }
 
     /* ===== STYLE GLOBAL & FOND ===== */
     body {
@@ -69,12 +68,7 @@
       position: relative;
     }
 
-    .nav a:hover { opacity: 1; }
-
-    .nav a.active {
-      opacity: 1;
-      font-weight: bold;
-    }
+    .nav a:hover, .nav a.active { opacity: 1; }
 
     .nav a.active::after {
       content: "";
@@ -103,6 +97,18 @@
       background: white;
       border-radius: 2px;
       transition: 0.3s;
+    }
+
+    /* ===== ANIMATION DE FONDU (REVEAL) ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease-out, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* ===== MAIN CONTENT ===== */
@@ -139,7 +145,7 @@
       border: 1px solid rgba(255, 255, 255, 0.15);
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 
                   inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      transition: 0.35s ease;
+      transition: transform 0.35s ease, background 0.35s ease, border-color 0.35s ease;
     }
 
     .contact-card:hover {
@@ -157,17 +163,47 @@
     .contact-card span {
       font-weight: 500;
       font-size: 1.2rem;
-      word-break: break-all; /* Évite que l'email dépasse sur petit écran */
+      word-break: break-all;
     }
 
     /* ===== RESPONSIVE MOBILE / TABLETTE ===== */
     @media (max-width: 950px) {
-      header { padding: 15px 25px; }
-      .header-center { position: static; transform: none; }
-      .header-center .logo-typo { font-size: 2rem; }
+      header { 
+        padding: 10px 20px; 
+        height: 70px; /* Fixe la hauteur pour un centrage stable */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-      .hamburger { display: flex; }
+      /* Réduction du logo pour gagner de la place */
+      .header-left img { 
+        width: 50px !important; 
+        height: auto;
+      }
 
+      /* CENTRAGE PARFAIT DU TITRE */
+      .header-center { 
+        position: absolute; 
+        left: 50%; 
+        top: 50%;
+        transform: translate(-50%, -50%); /* Centre horizontalement et verticalement */
+        width: auto;
+        z-index: 5;
+      }
+
+      .header-center .logo-typo { 
+        font-size: 1.8rem; /* Taille adaptée pour mobile */
+        white-space: nowrap;
+      }
+
+      .hamburger { 
+        display: flex; 
+        position: relative;
+        z-index: 2100;
+      }
+
+      /* Menu mobile plein écran */
       .nav {
         position: fixed;
         top: 0;
@@ -193,11 +229,16 @@
       .hamburger.active span:nth-child(2) { opacity: 0; }
       .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-      .contact-card {
-        padding: 1rem 1.5rem;
-      }
-      
-      h1 { font-size: 2.2rem; }
+      /* Ajustements contenu contact */
+      main { padding: 80px 15px 40px; }
+      h1 { font-size: 2.2rem; margin-bottom: 1.5rem; }
+      .contact-card { width: 100%; }
+    }
+
+    /* Ajustement pour les écrans minuscules (ex: iPhone SE) */
+    @media (max-width: 400px) {
+      .header-left { display: none; } /* Cache le logo image pour laisser toute la place au nom */
+      .header-center .logo-typo { font-size: 1.6rem; }
     }
   </style>
 </head>
@@ -229,45 +270,62 @@
   </header>
 
   <main>
-    <h1>Contactez-moi</h1>
+    <h1 class="reveal">Contactez-moi</h1>
 
-    <a href="https://www.instagram.com/inspi_graphie/" target="_blank" class="contact-card">
+    <a href="https://www.instagram.com/inspi_graphie/" target="_blank" class="contact-card reveal">
       <img src="instagram.png" alt="Instagram">
       <span>@inspi_graphie</span>
     </a>
 
-    <a href="https://www.tiktok.com/@inspi_graphie" target="_blank" class="contact-card">
+    <a href="https://www.tiktok.com/@inspi_graphie" target="_blank" class="contact-card reveal">
       <img src="tiktok.png" alt="TikTok">
       <span>@inspi_graphie</span>
     </a>
 
-    <a href="https://x.com/InspiGraphie" target="_blank" class="contact-card">
+    <a href="https://x.com/InspiGraphie" target="_blank" class="contact-card reveal">
       <img src="x.png" alt="Twitter">
       <span>@InspiGraphie</span>
     </a>
 
-    <a href="mailto:inspigraphie@gmail.com" class="contact-card">
+    <a href="mailto:inspigraphie@gmail.com" class="contact-card reveal">
       <img src="mail.png" alt="Email">
       <span>inspigraphie@gmail.com</span>
     </a>
   </main>
 
   <script>
+    // --- GESTION DU MENU HAMBURGER ---
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
 
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('open');
+        document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : 'auto';
     });
 
-    // Ferme le menu au clic sur un lien
     document.querySelectorAll('.nav a').forEach(link => {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('open');
+            document.body.style.overflow = 'auto';
         });
     });
+
+    // --- ANIMATION REVEAL AU SCROLL (FONDU CASCADE) ---
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                // On ajoute un petit délai basé sur l'index pour l'effet de cascade
+                setTimeout(() => {
+                    entry.target.classList.add('active');
+                }, index * 150);
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   </script>
 
 </body>

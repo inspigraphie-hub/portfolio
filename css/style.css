@@ -1,0 +1,197 @@
+/* ===== FONTS ===== */
+@font-face {
+    font-family: "Bluetag";
+    src: url("../fonts/Bluetag_PERSONAL_USE_ONLY.otf") format("opentype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* améliore le rendu si la police met du temps à charger */
+}
+/* ===== GLOBAL ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: #0f0f0f;
+  color: white;
+}
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+  position: relative;
+  border-bottom: 1px solid #222;
+  background: #111;
+}
+
+/* Logo visuel à gauche */
+.header-left .logo-visuel {
+  width: 60px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Logo typographique centré */
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
+}
+
+.header-center .logo-typo {
+  font-size: 3rem;
+  letter-spacing: 1px;
+  color: white;
+  font-family: "Bluetag", sans-serif;
+}
+
+/* Menu nav à droite */
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: white;
+  opacity: 0.8;
+  font-size: 1.5rem;
+  transition: 0.2s;
+}
+
+.nav a:hover {
+  opacity: 1;
+}
+
+/* ===== HERO ===== */
+.hero {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  /* IMAGE DE FOND */
+  background: url("../images/baniere_2.png") center/cover no-repeat;
+  position: relative;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  opacity: 0.8;
+  max-width: 500px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.btn {
+  padding: 14px 30px;
+  background: white;
+  color: black;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+/* ===== SECTION ===== */
+.section {
+  padding: 80px 60px;
+  text-align: center;
+  background-color: #000000;
+}
+
+.section h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+/* ===== CARDS ===== */
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #171717;
+  padding: 30px;
+  border-radius: 10px;
+  width: 250px;
+  border: 1px solid #222;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: #444;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+}
+
+.card p {
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+
+/* ===== CTA ===== */
+.cta {
+  padding: 80px 20px;
+  text-align: center;
+  border-top: 1px solid #222;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid #222;
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .header-center {
+    position: static;
+    transform: none;
+    align-self: center;
+    margin: 10px 0;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  .cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}

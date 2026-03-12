@@ -9,7 +9,6 @@
     <style>
         @font-face {
             font-family: "DonGraffiti";
-            /* Assure-toi que le fichier est bien nommé ainsi dans ton dossier fonts */
             src: url("fonts/DonGraffiti.otf") format("opentype"),
                  url("fonts/DonGraffiti.ttf") format("truetype");
             font-weight: normal;
@@ -30,7 +29,7 @@
             overflow-x: hidden;
         }
 
-        /* ===== HEADER GLASS (Sticky & Responsive) ===== */
+        /* ===== HEADER GLASS ===== */
         header {
             display: flex;
             align-items: center;
@@ -59,7 +58,6 @@
             font-family: "DonGraffiti", sans-serif;
         }
 
-        /* Navigation Desktop */
         .nav { display: flex; gap: 20px; }
 
         .nav a {
@@ -71,12 +69,7 @@
             position: relative;
         }
 
-        .nav a:hover { opacity: 1; }
-
-        .nav a.active {
-            opacity: 1;
-            font-weight: bold;
-        }
+        .nav a:hover, .nav a.active { opacity: 1; }
 
         .nav a.active::after {
             content: "";
@@ -89,7 +82,6 @@
             border-radius: 2px;
         }
 
-        /* Style Hamburger */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -126,6 +118,18 @@
             gap: 35px;
         }
 
+        /* ===== ANIMATION REVEAL (FONDU) ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* ===== CARD GLASS ===== */
         .skill-card {
             display: flex;
@@ -138,7 +142,7 @@
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.15);
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            transition: 0.35s;
+            transition: transform 0.35s, background 0.35s, opacity 1s, transform 1s;
         }
 
         .skill-card:hover {
@@ -147,7 +151,7 @@
         }
 
         .skill-card img {
-            width: 150px; /* Taille réduite pour plus d'équilibre */
+            width: 150px;
             height: 150px;
             object-fit: contain;
         }
@@ -164,14 +168,44 @@
             margin: 0;
         }
 
-        /* ===== RESPONSIVE MOBILE / TABLETTE ===== */
+        /* ===== RESPONSIVE MOBILE & TABLETTE ===== */
         @media (max-width: 950px) {
-            header { padding: 15px 25px; }
-            .header-center { position: static; transform: none; }
-            .header-center .logo-typo { font-size: 2rem; }
+            header { 
+                padding: 10px 20px; 
+                height: 70px; /* On fixe la hauteur pour un centrage vertical stable */
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
 
-            .hamburger { display: flex; }
+            /* On réduit le logo pour laisser de la place au titre */
+            .header-left img { 
+                width: 50px !important; 
+                height: auto;
+            }
 
+            /* CENTRAGE PARFAIT DU TITRE */
+            .header-center { 
+                position: absolute; 
+                left: 50%; 
+                top: 50%;
+                transform: translate(-50%, -50%); /* Centre horizontalement et verticalement */
+                width: auto;
+                z-index: 5;
+            }
+
+            .header-center .logo-typo { 
+                font-size: 1.8rem; /* Taille adaptée pour mobile */
+                white-space: nowrap;
+            }
+
+            .hamburger { 
+                display: flex; 
+                position: relative;
+                z-index: 2100;
+            }
+
+            /* Menu mobile plein écran */
             .nav {
                 position: fixed;
                 top: 0;
@@ -190,22 +224,28 @@
             }
 
             .nav.open { right: 0; }
-            .nav a { font-size: 2rem; opacity: 0.8; }
+            .nav a { font-size: 2rem; }
             .nav a.active::after { bottom: -10px; height: 4px; }
 
-            .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-            .hamburger.active span:nth-child(2) { opacity: 0; }
-            .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
+            /* Cartes de compétences sur mobile */
             .skill-card {
                 flex-direction: column;
                 text-align: center;
                 gap: 20px;
                 padding: 30px;
+                /* On simplifie l'animation sur mobile pour la fluidité */
+                opacity: 1;
+                transform: none;
             }
 
             .skill-card img { width: 100px; height: 100px; }
             .skill-text h3 { font-size: 1.8rem; }
+        }
+
+        /* Ajustement spécial pour les très petits écrans */
+        @media (max-width: 400px) {
+            .header-left { display: none; } /* On cache le logo image pour laisser toute la place au nom */
+            .header-center .logo-typo { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -222,9 +262,7 @@
         </div>
 
         <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
 
         <nav class="nav" id="nav-menu">
@@ -243,7 +281,7 @@
     </section>
 
     <section class="skills">
-        <div class="skill-card">
+        <div class="skill-card reveal">
             <img src="images/photoshop.png" alt="Photoshop">
             <div class="skill-text">
                 <h3>Adobe Photoshop</h3>
@@ -251,7 +289,7 @@
             </div>
         </div>
 
-        <div class="skill-card">
+        <div class="skill-card reveal">
             <img src="images/illustrator.png" alt="Illustrator">
             <div class="skill-text">
                 <h3>Adobe Illustrator</h3>
@@ -259,7 +297,7 @@
             </div>
         </div>
 
-        <div class="skill-card">
+        <div class="skill-card reveal">
             <img src="images/indesign.png" alt="InDesign">
             <div class="skill-text">
                 <h3>Adobe InDesign</h3>
@@ -267,7 +305,7 @@
             </div>
         </div>
 
-        <div class="skill-card">
+        <div class="skill-card reveal">
             <img src="images/capcut.png" alt="CapCut">
             <div class="skill-text">
                 <h3>CapCut</h3>
@@ -275,7 +313,7 @@
             </div>
         </div>
 
-        <div class="skill-card">
+        <div class="skill-card reveal">
             <img src="images/canva.png" alt="Canva">
             <div class="skill-text">
                 <h3>Canva</h3>
@@ -283,7 +321,7 @@
             </div>
         </div>
 
-        <div class="skill-card">
+        <div class="skill-card reveal">
             <img src="images/codage.png" alt="HTML CSS">
             <div class="skill-text">
                 <h3>HTML / CSS</h3>
@@ -293,20 +331,38 @@
     </section>
 
     <script>
+        // --- MENU HAMBURGER ---
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
 
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('open');
+            document.body.style.overflow = navMenu.classList.contains('open') ? 'hidden' : 'auto';
         });
 
         document.querySelectorAll('.nav a').forEach(link => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('open');
+                document.body.style.overflow = 'auto';
             });
         });
+
+        // --- ANIMATION REVEAL AU SCROLL ---
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // Délai progressif (cascade) pour les cartes visibles
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 100);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     </script>
 
 </body>

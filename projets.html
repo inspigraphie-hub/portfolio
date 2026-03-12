@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projets | InspiGraphie</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projets | InspiGraphie</title>
 
-<style>
- @font-face {
+    <style>
+        @font-face {
             font-family: "DonGraffiti";
-            /* Assure-toi que le fichier est bien nommé ainsi dans ton dossier fonts */
             src: url("fonts/DonGraffiti.otf") format("opentype"),
                  url("fonts/DonGraffiti.ttf") format("truetype");
             font-weight: normal;
@@ -16,219 +15,242 @@
             font-display: swap;
         }
 
-/* ===== STYLE GLOBAL & FOND ===== */
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color: white;
-    background-image: url("images/fond.jpg");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
+        /* ===== STYLE GLOBAL ===== */
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            background-image: url("images/fond.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-/* ===== HEADER GLASS (Sticky & Responsive) ===== */
-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 40px;
-    position: sticky; 
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(17, 17, 17, 0.8); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-}
+        /* ===== HEADER GLASS ===== */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(17, 17, 17, 0.8); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
 
-.header-left img { width: 100px; height: auto; object-fit: contain; }
+        .header-left img { width: 100px; height: auto; object-fit: contain; }
+        .header-center { position: absolute; left: 50%; transform: translateX(-50%); }
+        .logo-typo { font-size: 3rem; font-family: "DonGraffiti", sans-serif; color: white; }
 
-.header-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.logo-typo { font-size: 3rem; font-family: "DonGraffiti", sans-serif; color: white; }
+        .nav { display: flex; gap: 20px; }
+        .nav a {
+            text-decoration: none;
+            color: white;
+            opacity: 0.5;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav a:hover, .nav a.active { opacity: 1; }
+        .nav a.active::after {
+            content: "";
+            position: absolute;
+            bottom: -5px; left: 0; width: 100%; height: 2px;
+            background: white; border-radius: 2px;
+        }
 
-/* Navigation Desktop */
-.nav { display: flex; gap: 20px; }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 2100;
+        }
+        .hamburger span {
+            display: block;
+            width: 30px; height: 3px;
+            background: white; border-radius: 2px;
+            transition: 0.3s;
+        }
 
-.nav a {
-    text-decoration: none;
-    color: white;
-    opacity: 0.5;
-    font-size: 1.2rem;
-    transition: 0.3s;
-    position: relative;
-}
-.nav a:hover { opacity: 1; }
+        /* ===== ANIMATION REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-.nav a.active {
-    opacity: 1;
-    font-weight: bold;
-}
-.nav a.active::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: white;
-    border-radius: 2px;
-}
+        /* ===== FILTRES ===== */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+        .filter-btn {
+            padding: 10px 22px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+        .filter-btn.active { background: white; color: black; border-color: white; }
 
-/* Style Hamburger */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    cursor: pointer;
-    z-index: 2100;
-}
-.hamburger span {
-    display: block;
-    width: 30px;
-    height: 3px;
-    background: white;
-    border-radius: 2px;
-    transition: 0.3s;
-}
+        /* ===== GALLERY ===== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: auto;
+        }
 
-/* ===== FILTRES GLASS ===== */
-.filters {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    flex-wrap: wrap;
-    margin: 40px 0;
-}
-.filter-btn {
-    padding: 10px 22px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    color: white;
-    cursor: pointer;
-    border-radius: 50px;
-    transition: 0.3s;
-}
-.filter-btn:hover { background: rgba(255, 255, 255, 0.2); }
-.filter-btn.active { background: white; color: black; border-color: white; }
-
-/* ===== GALLERY & POSTER GLASS ===== */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px;
-    padding: 40px;
-    max-width: 1400px;
-    margin: auto;
-}
-
-.poster {
+        .poster {
     position: relative;
     cursor: pointer;
     overflow: hidden;
     border-radius: 20px;
-    height: 400px;
+    /* On utilise l'aspect ratio pour le format A4 */
+    width: 100%;
+    aspect-ratio: 1 / 1.41; 
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s;
 }
 
-.poster img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-    transition: 0.5s;
-}
+        .poster img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .poster:hover { transform: translateY(-10px) scale(1.02); border-color: rgba(255, 255, 255, 0.4); }
+        .poster:hover img { opacity: 0.7; transform: scale(1.1); }
 
-.poster:hover {
-    transform: translateY(-10px) scale(1.02);
-    border-color: rgba(255, 255, 255, 0.4);
-}
-.poster:hover img { opacity: 0.7; transform: scale(1.1); }
+        .title {
+            position: absolute;
+            bottom: 20px; left: 20px; right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 10px 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            pointer-events: none;
+        }
 
-.title {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    padding: 10px 15px;
-    border-radius: 12px;
-    font-size: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    text-align: center;
-    pointer-events: none;
-}
+        /* ===== MODAL AVEC SLIDER ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top:0; left:0; width:100%; height:100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(25px);
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 2000;
+        }
 
-/* ===== MODAL GLASS APPLE ===== */
-.modal {
-    display: none;
-    position: fixed;
-    top:0; left:0; width:100%; height:100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    z-index: 2000;
-}
+        .modal-content-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1000px;
+        }
 
-.modal img {
-    max-width: 90%;
-    max-height: 70vh;
-    border-radius: 15px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-}
+        #modal-img {
+            max-width: 90%;
+            max-height: 70vh;
+            border-radius: 15px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transition: opacity 0.3s ease-in-out;
+        }
 
-.modal-info {
-    max-width: 600px;
-    text-align: center;
-    margin-top: 25px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 2.5rem;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: 0.3s;
+            user-select: none;
+            z-index: 2100;
+        }
+        .nav-arrow:hover { background: white; color: black; }
+        .prev-arrow { left: 40px; }
+        .next-arrow { right: 40px; }
+        .nav-hidden { display: none; }
 
-.close {
-    position: absolute;
-    top: 30px;
-    right: 40px;
-    font-size: 50px;
-    color: white;
-    cursor: pointer;
-    opacity: 0.5;
-}
-.close:hover { opacity: 1; }
+        .modal-info {
+            max-width: 600px;
+            text-align: center;
+            margin-top: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-/* ===== RESPONSIVE MOBILE ===== */
+        .close {
+            position: absolute;
+            top: 30px; right: 40px;
+            font-size: 50px; color: white;
+            cursor: pointer; opacity: 0.5;
+        }
+        .close:hover { opacity: 1; }
+
+        /* ===== RESPONSIVE MOBILE & TABLETTE ===== */
 @media (max-width: 950px) {
-    header { padding: 15px 25px; }
-    .header-center { position: static; transform: none; }
-    .header-center .logo-typo { font-size: 2rem; }
-    
-    .hamburger { display: flex; }
+    /* --- Header & Titre --- */
+    header { 
+        padding: 10px 20px; 
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 
+    .header-left img { 
+        width: 50px !important; 
+    }
+
+    .header-center { 
+        position: absolute; 
+        left: 50%; 
+        top: 50%;
+        transform: translate(-50%, -50%); /* Centrage mathématique parfait */
+        z-index: 5;
+    }
+
+    .header-center .logo-typo { 
+        font-size: 1.8rem; 
+        white-space: nowrap;
+    }
+
+    /* --- Navigation Mobile --- */
+    .hamburger { display: flex; z-index: 2100; }
     .nav {
         position: fixed;
-        top: 0;
-        right: -100%;
-        width: 100%;
-        height: 100vh;
+        top: 0; right: -100%; width: 100%; height: 100vh;
         background: rgba(17, 17, 17, 0.98);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
@@ -239,72 +261,75 @@ header {
         transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
         z-index: 2000;
     }
-
     .nav.open { right: 0; }
-    .nav a { font-size: 2rem; opacity: 0.8; }
-    .nav a.active::after { bottom: -10px; height: 4px; }
+    .nav a { font-size: 2.2rem; }
 
-    .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-    .hamburger.active span:nth-child(2) { opacity: 0; }
-    .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-}
-
-/* ===== RESPONSIVE MOBILE ===== */
-@media (max-width: 950px) {
-    
-    /* ... (garde ton code pour le header et le hamburger) ... */
-
-    .gallery {
-        /* On force 2 colonnes minimum même sur petit écran */
+    /* --- Galerie --- */
+    .gallery { 
         grid-template-columns: repeat(2, 1fr); 
-        gap: 15px; /* On réduit un peu l'espace pour gagner de la place */
-        padding: 20px 15px;
+        gap: 12px; 
+        padding: 20px 10px; 
+    }
+    .poster { height: auto; }
+
+    /* --- MODALE (Correction du Centrage) --- */
+    .modal {
+        padding: 10px;
+        justify-content: center; /* Centre verticalement le contenu */
     }
 
-    .poster {
-        height: 250px; /* On réduit la hauteur sur mobile pour garder de bonnes proportions */
-        border-radius: 12px; /* Coins un peu moins arrondis pour les petites cartes */
+    .modal-content-wrapper {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    .title {
-        font-size: 0.75rem; /* Texte plus petit pour ne pas déborder */
-        padding: 6px 8px;
-        bottom: 10px;
-        left: 10px;
-        right: 10px;
+    #modal-img {
+        max-width: 100%;
+        max-height: 60vh; /* On réduit la hauteur pour laisser de la place au texte en dessous */
+        object-fit: contain;
+    }
+
+    /* Flèches sur Mobile */
+    .nav-arrow { 
+        font-size: 1.2rem; 
+        padding: 10px 12px; 
+        background: rgba(0, 0, 0, 0.5); /* Plus sombre pour être lisible sur l'image */
+        border: none;
+    }
+    .prev-arrow { left: 5px; }
+    .next-arrow { right: 5px; }
+
+    .modal-info {
+        width: 100%;
+        padding: 15px;
+        margin-top: 15px;
+        font-size: 0.9rem;
+    }
+
+    .close {
+        top: 15px;
+        right: 20px;
+        font-size: 40px;
     }
 }
 
-/* Optionnel : pour les très petits téléphones, on s'assure que c'est toujours 2 */
+/* Ajustement pour les écrans minuscules */
 @media (max-width: 400px) {
-    .gallery {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-    }
-    .poster {
-        height: 200px;
-    }
+    .header-left { display: none; }
+    .header-center .logo-typo { font-size: 1.5rem; }
 }
-</style>
+    </style>
 </head>
 
 <body>
 
 <header>
-    <div class="header-left">
-        <img src="logo.png" alt="Logo">
-    </div>
-
-    <div class="header-center">
-        <div class="logo-typo">InspiGraphie</div>
-    </div>
-
-    <div class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
+    <div class="header-left"><img src="logo.png" alt="Logo"></div>
+    <div class="header-center"><div class="logo-typo">InspiGraphie</div></div>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     <nav class="nav" id="nav-menu">
         <a href="index.html">Accueil</a>
         <a href="projets.html" class="active">Projets</a>
@@ -315,7 +340,7 @@ header {
     </nav>
 </header>
 
-<div class="filters">
+<div class="filters reveal">
     <button class="filter-btn active" data-filter="all">Tout</button>
     <button class="filter-btn" data-filter="perso">Personnel</button>
     <button class="filter-btn" data-filter="client">Clients</button>
@@ -341,6 +366,12 @@ header {
     data-description="Affiche pour le match de la SuperCoupe UEFA entre le PSG et TOTTENHAM.">
     <img src="images/fifa.png" alt="PSG - Tottenham" loading="lazy">
     <span class="title">PSG - Tottenham</span>
+</div>
+
+
+<div class="poster" data-category="perso" data-title="PSG - Chelsea" data-date="Juillet 2025" data-temps="2h" data-description="Affiche pour la finale de la Coupe du Monde des Clubs entre le PSG et Chelsea.">
+  <img src="images/test1.png" alt="Lille - PSG" loading="lazy">
+  <span class="title">Affiche match PSG - Chelsea </span>
 </div>
 
 <div class="poster" data-category="perso" data-title="France - Allemagne" data-date="Juillet 2025" data-temps="2h"
@@ -470,10 +501,91 @@ header {
 </div>
 
 <!-- ===================== Projets Clients ===================== -->
-<div class="poster" data-category="client" data-title="Flyers Croowkies" data-date="Mai 2025" data-temps="6h" data-description="Création d’un flyer pour la boulangerie Croowkies. Respect de la charte beige et marron.">
-  <img src="images/croowkies.png" alt="Flyers Croowkies" loading="lazy">
-  <span class="title">Flyers Croowkies</span>
+<div class="poster reveal" 
+     data-category="client" 
+     data-title="Flyers Croowkies" 
+     data-date="Février 2026" 
+     data-temps="6h" 
+     data-description="Création de plusieurs flyers pour la boulangerie Croowkies. Le client voulait reproduire la nouvelle pub de Quick en collaboration avec Avengers."
+     data-images="images/mmscroowkies.jpg,images/oreocroowkies.jpg,images/tiramisucroowkies.jpg,images/croowkiespub.jpg,images/croowkiespub2.jpg,images/ramadan.png">
+     
+     <img src="images/croowkies2.png" alt="Flyers Croowkies 2" loading="lazy">
+     <span class="title">Visuel pour les Croowkies (pack2)</span>
 </div>
+
+<div class="poster reveal" 
+     data-category="client" 
+     data-title="carte fidelite" 
+     data-date="Octobre 2025" 
+     data-temps="1h" 
+     data-description="Création d'une carte de fidélité (2 propositions)."
+     data-images="images/carte fidelite v2.png,images/carte fidelite 2 v2.png,images/carte fide2.png,images/carte fide v2.png">
+     
+     <img src="images/carte fidelite v2.png" alt="carte fide Croowkies 2" loading="lazy">
+     <span class="title">Carte de fidélité pour les Croowkies (pack2)</span>
+</div>
+
+
+<div class="poster reveal" 
+     data-category="client" 
+     data-title="Flyers Croowkies" 
+     data-date="Février 2026" 
+     data-temps="6h" 
+     data-description="Création de plusieurs flyers pour la boulangerie Croowkies. Respect de la charte beige et marron."
+     data-images="images/mmscroowkies.jpg,images/oreocroowkies.jpg,images/tiramisucroowkies.jpg,images/croowkiespub.jpg,images/croowkiespub2.jpg,images/ramadan.png">
+     
+     <img src="images/croowkies2.png" alt="Flyers Croowkies 2" loading="lazy">
+     <span class="title">Visuel pour les Croowkies (pack2)</span>
+</div>
+
+
+<div class="poster reveal" 
+     data-category="client" 
+     data-title="Flyers Croowkies" 
+     data-date="Mai 2025" 
+     data-temps="6h" 
+     data-description="Création de plusieurs flyers pour la boulangerie Croowkies. Respect de la charte beige et marron."
+     data-images="images/cookies1.png,images/cookies2.png,images/COOKIES1v2.png,images/COOKIES5V2.png,images/COOKIES3v2.png,images/cookies4.png">
+     
+     <img src="images/croowkies.png" alt="Flyers Croowkies" loading="lazy">
+     <span class="title">Flyers Croowkies (pack 1)</span>
+</div>
+
+
+<div class="poster" data-category="client" data-title="minia fortnite" data-date="Septembre 2025" data-temps="2h" data-description="Miniature YouTube pour un compte fortnite.">
+  <img src="images/minia2 (1).png" alt="minia fortnite 3" loading="lazy">
+  <span class="title">Miniature Fortnite 3 </span>
+</div>
+
+<div class="poster" data-category="client" data-title="minia fortnite" data-date="Septembre 2025" data-temps="2h" data-description="Miniature YouTube pour un compte fortnite.">
+  <img src="images/Design sans titre (9).png" alt="minia fortnite" loading="lazy">
+  <span class="title">Miniature Fortnite 2 </span>
+</div>
+<div class="poster" data-category="client" data-title="minia fortnite" data-date="Septembre 2025" data-temps="2h" data-description="Miniature YouTube pour un compte fortnite.">
+  <img src="images/elitechamp (2).png" alt="minia fortnite 1" loading="lazy">
+  <span class="title">Miniature Fortnite 1 </span>
+</div>
+
+
+<div class="poster reveal" 
+     data-category="client" 
+     data-title="visuel maillot" 
+     data-date="Juin 2025" 
+     data-temps="30min" 
+     data-description="Création de plusieurs visuel pour mettre en avant des maillots de football, pour un compte tiktok."
+     data-images="images/lever.png,images/sporting.png,images/galatasaray.png">
+     
+     <img src="images/lever.png" alt="Flyers Croowkies" loading="lazy">
+     <span class="title">Flyers Croowkies (pack 1)</span>
+</div>
+
+
+
+
+
+
+
+
 
 <div class="poster" data-category="client" data-title="Lille - PSG" data-date="Septembre 2024" data-temps="2h" data-description="Affiche pour un compte de football. Composition dynamique et contrastée.">
   <img src="images/LILLE-PSG.png" alt="Lille - PSG" loading="lazy">
@@ -601,92 +713,140 @@ header {
   <span class="title">Brochure 4 pages</span>
 </div>
 
+
+
+<div class="poster" data-category="scolaire" data-title="flyer pomme" data-date="Octobre 2025" data-temps="1h" data-description="Création d'un flyer pour un exercice, sur un évènement fictif.">
+  <img src="images/flyers-Récupéré.png" alt="flyer pomme" loading="lazy">
+  <span class="title">Flyer Fictif </span>
+</div>
+
+<div class="poster" data-category="client" data-title="couverture" data-date="2023" data-temps="1h" data-description="Création d'une couverture pour un roman de fantasy, pour une écrivaine amatatrice.">
+  <img src="images/couverture.jpg" alt="flyer pomme" loading="lazy">
+  <span class="title">Couverture roman</span>
+</div>
+
+
 </section>
 
 <div class="modal" id="modal">
     <span class="close">&times;</span>
-    <img id="modal-img" alt="">
+    
+    <div class="modal-content-wrapper">
+        <div class="nav-arrow prev-arrow" id="prev-btn">&#10094;</div>
+        <img id="modal-img" src="" alt="">
+        <div class="nav-arrow next-arrow" id="next-btn">&#10095;</div>
+    </div>
+
     <div class="modal-info">
         <h2 id="modal-title"></h2>
         <p id="modal-date"></p>
-        <p id="modal-temps"></p>
         <p id="modal-desc"></p>
     </div>
 </div>
 
 <script>
-// Menu Hamburger
+// --- MENU ---
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
+hamburger.onclick = () => { hamburger.classList.toggle('active'); navMenu.classList.toggle('open'); };
 
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('open');
-});
-
-// Ferme le menu au clic sur un lien
-document.querySelectorAll('.nav a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('open');
+// --- REVEAL ---
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('active'), index * 100);
+            revealObserver.unobserve(entry.target);
+        }
     });
-});
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-// ===== TRI PAR DATE =====
-const gallery = document.querySelector(".gallery");
-const posters = Array.from(document.querySelectorAll(".poster"));
-
-function parseDate(dateStr){
-    if(!dateStr) return new Date(0);
-    const months = { janvier:0, février:1, fevrier:1, mars:2, avril:3, mai:4, juin:5, juillet:6, août:7, aout:7, septembre:8, octobre:9, novembre:10, décembre:11, decembre:11 };
-    const parts = dateStr.trim().toLowerCase().split(" ");
-    const month = months[parts[0]];
-    const year = parseInt(parts[1]);
-    return new Date(year, month);
-}
-
-posters.sort((a,b)=>{ return parseDate(b.dataset.date) - parseDate(a.dataset.date); });
-posters.forEach(p=>{ gallery.appendChild(p); });
-
-// ===== FILTRES =====
-const filterBtns = document.querySelectorAll(".filter-btn");
-filterBtns.forEach(btn=>{
-    btn.addEventListener("click",()=>{
-        filterBtns.forEach(b=>b.classList.remove("active"));
-        btn.classList.add("active");
-        const filter = btn.dataset.filter;
-        posters.forEach(p=>{
-            if(filter === "all"){ p.style.display = ""; }
-            else{ p.style.display = p.dataset.category === filter ? "" : "none"; }
-        });
-    });
-});
-
-// ===== MODAL =====
+// --- SLIDER & MODALE ---
+let currentImages = [];
+let currentIndex = 0;
 const modal = document.getElementById("modal");
 const modalImg = document.getElementById("modal-img");
-const modalTitle = document.getElementById("modal-title");
-const modalDate = document.getElementById("modal-date");
-const modalTemps = document.getElementById("modal-temps");
-const modalDesc = document.getElementById("modal-desc");
+const prevBtn = document.getElementById("prev-btn");
+const nextBtn = document.getElementById("next-btn");
 
-document.querySelectorAll(".poster img").forEach(img=>{
-    img.addEventListener("click",()=>{
-        const parent = img.parentElement;
-        if(parent.dataset.pdf){ window.open(parent.dataset.pdf,"_blank"); return; }
+document.querySelectorAll(".poster").forEach(poster => {
+    poster.addEventListener("click", () => {
+        const firstImg = poster.querySelector("img");
+        
+        // Gère le PDF
+        if(poster.dataset.pdf){ window.open(poster.dataset.pdf,"_blank"); return; }
+
+        // Récupère les images : soit data-images, soit juste la miniature
+        if (poster.dataset.images) {
+            currentImages = poster.dataset.images.split(",");
+        } else {
+            currentImages = [firstImg.src];
+        }
+
+        currentIndex = 0;
+        updateModalImage();
+
+        document.getElementById("modal-title").textContent = poster.dataset.title || "";
+        document.getElementById("modal-date").textContent = poster.dataset.date || "";
+        document.getElementById("modal-desc").textContent = poster.dataset.description || "";
+
         modal.style.display = "flex";
-        modalImg.src = img.src;
-        modalTitle.textContent = parent.dataset.title || "";
-        modalDate.textContent = parent.dataset.date || "";
-        modalTemps.textContent = parent.dataset.temps || "";
-        modalDesc.textContent = parent.dataset.description || "";
+        document.body.style.overflow = "hidden"; // Bloque le scroll
     });
 });
 
-document.querySelector(".close").onclick = ()=>{ modal.style.display = "none"; };
-modal.onclick = (e)=>{ if(e.target === modal){ modal.style.display = "none"; } };
+function updateModalImage() {
+    modalImg.style.opacity = 0;
+    setTimeout(() => {
+        modalImg.src = currentImages[currentIndex];
+        modalImg.style.opacity = 1;
+    }, 200);
+    
+    // Cache les flèches si une seule image
+    if (currentImages.length <= 1) {
+        prevBtn.classList.add("nav-hidden");
+        nextBtn.classList.add("nav-hidden");
+    } else {
+        prevBtn.classList.remove("nav-hidden");
+        nextBtn.classList.remove("nav-hidden");
+    }
+}
+
+nextBtn.onclick = (e) => { e.stopPropagation(); currentIndex = (currentIndex + 1) % currentImages.length; updateModalImage(); };
+prevBtn.onclick = (e) => { e.stopPropagation(); currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length; updateModalImage(); };
+
+document.querySelector(".close").onclick = () => { modal.style.display = "none"; document.body.style.overflow = "auto"; };
+modal.onclick = (e) => { if(e.target === modal) { modal.style.display = "none"; document.body.style.overflow = "auto"; } };
+
+// --- FILTRES ---
+const filterBtns = document.querySelectorAll(".filter-btn");
+const posters = document.querySelectorAll(".poster");
+
+filterBtns.forEach(btn => {
+    btn.onclick = () => {
+        // Gestion visuelle des boutons
+        filterBtns.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const filter = btn.dataset.filter;
+
+        posters.forEach(p => {
+            if (filter === "all" || p.dataset.category === filter) {
+                p.style.display = ""; // On affiche
+                
+                // Optionnel : On relance l'animation pour qu'ils 
+                // apparaissent dans l'ordre de la grille
+                setTimeout(() => {
+                    p.classList.add('active');
+                }, 10);
+            } else {
+                p.style.display = "none"; // On cache
+                p.classList.remove('active'); // On reset l'état pour le prochain filtre
+            }
+        });
+    };
+});
 </script>
 
 </body>
 </html>
-
