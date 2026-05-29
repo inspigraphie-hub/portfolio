@@ -26,38 +26,49 @@
 
         body {
             background-color: #111;
-            background-image: url("images/fond.jpg");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             color: white;
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Calque fixe optimisé pour remplacer background-attachment: fixed */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url("images/fond.jpg");
+            background-size: cover;
+            background-position: center;
+            z-index: -10; 
         }
 
         /* ===== HEADER GLASS (Sticky) ===== */
         header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 40px;
-    position: sticky; 
-    top: 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(17, 17, 17, 0.8); 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-}
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            position: sticky; 
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(17, 17, 17, 0.8); 
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+        }
 
-.header-left img { width: 100px; height: auto; object-fit: contain; }
+        .header-left img { width: 100px; height: auto; object-fit: contain; }
 
-.header-center {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-.logo-typo { font-size: 3rem; font-family: "DonGraffiti", sans-serif; color: white; }
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .logo-typo { font-size: 3rem; font-family: "DonGraffiti", sans-serif; color: white; }
 
         /* Navigation Desktop */
         .nav { display: flex; gap: 25px; }
@@ -230,30 +241,28 @@
         @media (max-width: 950px) {
             header { 
                 padding: 10px 20px; 
-                height: 70px; /* On fixe la hauteur pour un centrage vertical stable */
+                height: 70px; 
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
 
-            /* On réduit le logo pour laisser de la place au titre */
             .header-left img { 
                 width: 50px !important; 
                 height: auto;
             }
 
-            /* CENTRAGE PARFAIT DU TITRE */
             .header-center { 
                 position: absolute; 
                 left: 50%; 
                 top: 50%;
-                transform: translate(-50%, -50%); /* Centre horizontalement et verticalement */
+                transform: translate(-50%, -50%); 
                 width: auto;
                 z-index: 5;
             }
 
             .header-center .logo-typo { 
-                font-size: 1.8rem; /* Taille adaptée pour mobile */
+                font-size: 1.8rem; 
                 white-space: nowrap;
             }
 
@@ -263,7 +272,6 @@
                 z-index: 2100;
             }
 
-            /* Menu mobile plein écran */
             .nav {
                 position: fixed;
                 top: 0;
@@ -285,13 +293,12 @@
             .nav a { font-size: 2rem; opacity: 0.8; }
             .nav a.active::after { bottom: -10px; height: 4px; }
 
-            /* Ajustements Hero pour Mobile */
             .hero {
                 height: auto;
                 min-height: 80vh;
                 padding-top: 120px;
                 padding-bottom: 60px;
-                background-attachment: scroll; /* Évite les bugs de saccade iOS */
+                background-attachment: scroll; 
             }
 
             .hero h1 { 
@@ -304,20 +311,17 @@
                 padding: 0 10px;
             }
 
-            /* Animation Hamburger */
             .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-            /* Cartes de services sur mobile */
             .section { padding: 60px 20px; }
             .section h2 { font-size: 2.2rem; }
             .card { width: 100%; max-width: 400px; }
         }
 
-        /* Ajustement spécial pour les très petits écrans (iPhone SE, etc.) */
         @media (max-width: 400px) {
-            .header-left { display: none; } /* On cache le logo image pour laisser toute la place au nom */
+            .header-left { display: none; } 
             .header-center .logo-typo { font-size: 1.6rem; }
         }
     </style>
