@@ -170,30 +170,28 @@
     @media (max-width: 950px) {
       header { 
         padding: 10px 20px; 
-        height: 70px; /* Fixe la hauteur pour un centrage stable */
+        height: 70px; 
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
 
-      /* Réduction du logo pour gagner de la place */
       .header-left img { 
         width: 50px !important; 
         height: auto;
       }
 
-      /* CENTRAGE PARFAIT DU TITRE */
       .header-center { 
         position: absolute; 
         left: 50%; 
         top: 50%;
-        transform: translate(-50%, -50%); /* Centre horizontalement et verticalement */
+        transform: translate(-50%, -50%); 
         width: auto;
         z-index: 5;
       }
 
       .header-center .logo-typo { 
-        font-size: 1.8rem; /* Taille adaptée pour mobile */
+        font-size: 1.8rem; 
         white-space: nowrap;
       }
 
@@ -203,7 +201,6 @@
         z-index: 2100;
       }
 
-      /* Menu mobile plein écran */
       .nav {
         position: fixed;
         top: 0;
@@ -229,15 +226,13 @@
       .hamburger.active span:nth-child(2) { opacity: 0; }
       .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-      /* Ajustements contenu contact */
       main { padding: 80px 15px 40px; }
       h1 { font-size: 2.2rem; margin-bottom: 1.5rem; }
       .contact-card { width: 100%; }
     }
 
-    /* Ajustement pour les écrans minuscules (ex: iPhone SE) */
     @media (max-width: 400px) {
-      .header-left { display: none; } /* Cache le logo image pour laisser toute la place au nom */
+      .header-left { display: none; } 
       .header-center .logo-typo { font-size: 1.6rem; }
     }
   </style>
@@ -287,9 +282,14 @@
       <span>@InspiGraphie</span>
     </a>
 
+    <a href="https://www.linkedin.com/in/c%C3%A9lian-seguin-gosselin-1172b1390/?skipRedirect=true" target="_blank" class="contact-card reveal">
+      <img src="linkedin.png" alt="LinkedIn">
+      <span>Célian SEGUIN GOSSELIN</span>
+    </a>
+
     <a href="mailto:inspigraphie@gmail.com" class="contact-card reveal">
       <img src="mail.png" alt="Email">
-      <span>inspigraphie@gmail.com</span>
+      <span>celianseguingosselin.laf@gmail.com</span>
     </a>
   </main>
 
@@ -316,7 +316,6 @@
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach((entry, index) => {
             if (entry.isIntersecting) {
-                // On ajoute un petit délai basé sur l'index pour l'effet de cascade
                 setTimeout(() => {
                     entry.target.classList.add('active');
                 }, index * 150);

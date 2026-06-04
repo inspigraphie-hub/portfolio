@@ -121,14 +121,14 @@
         .title-section h1 { font-size: 3rem; margin-bottom: 10px; }
         .title-section p { color: #aaa; font-size: 1.1rem; }
 
-        /* ===== GRILLE DES SERVICES ===== */
+        /* ===== GRILLE DES SERVICES (ALIGNEMENT SUR UNE LIGNE) ===== */
         .services-container {
-            max-width: 1200px;
+            max-width: 1400px; /* Élargi pour laisser de la place aux 4 cartes côte à côte */
             margin: auto;
             padding: 0 30px 80px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(4, 1fr); /* Force l'alignement sur 4 colonnes sur une seule ligne */
+            gap: 25px; /* Espacement légèrement réduit pour optimiser l'espace horizontal */
         }
 
         /* ===== LA CARTE AVEC INCRUSTATION IMAGE ===== */
@@ -153,7 +153,7 @@
 
         .card-preview {
             width: 100%;
-            height: 220px;
+            height: 180px; /* Hauteur légèrement réduite pour équilibrer le format vertical des cartes */
             background: rgba(0, 0, 0, 0.2);
             display: flex;
             justify-content: center;
@@ -177,32 +177,36 @@
         }
 
         .card-content {
-            padding: 30px;
+            padding: 20px; /* Légèrement réduit pour s'adapter à la largeur de ligne */
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Permet d'aligner les boutons du bas même si les textes ont des longueurs différentes */
         }
 
         .card-content h3 {
-            font-size: 1.8rem;
-            margin: 0 0 15px 0;
+            font-size: 1.4rem; /* Légèrement réduit pour éviter les retours à la ligne brusques */
+            margin: 0 0 12px 0;
             color: #fff;
         }
 
         .card-content p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 25px;
-            min-height: 60px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            min-height: 70px; /* Assure une hauteur homogène pour le texte */
         }
 
         .btn-service {
+            margin-top: auto; /* Pousse le bouton vers le bas de la carte */
             display: inline-block;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
             color: white;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             background: rgba(255, 255, 255, 0.05);
             transition: 0.3s;
         }
@@ -252,34 +256,39 @@
             transform: translateX(8px);
         }
 
-       /* ===== RESPONSIVE MOBILE / TABLETTE ===== */
+        /* ===== RESPONSIVE MOBILE / TABLETTE ===== */
+        @media (max-width: 1024px) {
+            .services-container {
+                grid-template-columns: repeat(2, 1fr); /* Passe sur 2 colonnes x 2 lignes sur tablette */
+                gap: 30px;
+            }
+        }
+
         @media (max-width: 950px) {
             header { 
                 padding: 10px 20px; 
-                height: 70px; /* Hauteur fixe pour stabiliser le centrage */
+                height: 70px; 
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
             }
 
-            /* Réduction du logo pour libérer de l'espace */
             .header-left img { 
                 width: 50px !important; 
                 height: auto;
             }
 
-            /* CENTRAGE ABSOLU DU TITRE */
             .header-center { 
                 position: absolute; 
                 left: 50%; 
                 top: 50%;
-                transform: translate(-50%, -50%); /* Centrage mathématique parfait */
+                transform: translate(-50%, -50%); 
                 width: auto;
                 z-index: 5;
             }
 
             .header-center .logo-typo { 
-                font-size: 1.8rem; /* Taille optimisée pour mobile */
+                font-size: 1.8rem; 
                 white-space: nowrap;
             }
 
@@ -289,7 +298,6 @@
                 z-index: 2100;
             }
 
-            /* Menu mobile */
             .nav {
                 position: fixed;
                 top: 0;
@@ -315,15 +323,20 @@
             .hamburger.active span:nth-child(2) { opacity: 0; }
             .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-            /* Ajustements du contenu Services pour mobile */
             .title-section { padding: 60px 20px 30px; }
             .title-section h1 { font-size: 2.2rem; }
-            .services-container { padding: 0 20px 60px; gap: 30px; }
         }
 
-        /* Correction pour les écrans très étroits (ex: iPhone SE) */
+        @media (max-width: 650px) {
+            .services-container {
+                grid-template-columns: 1fr; /* 1 seule colonne sur smartphone pour le confort de lecture */
+                padding: 0 20px 60px;
+                gap: 30px;
+            }
+        }
+
         @media (max-width: 400px) {
-            .header-left { display: none; } /* On cache le logo pour laisser toute la place au titre */
+            .header-left { display: none; } 
             .header-center .logo-typo { font-size: 1.6rem; }
         }
     </style>
@@ -360,6 +373,7 @@
 
     <section class="services-container">
 
+        <!-- Carte 1 -->
         <div class="service-card reveal">
             <div class="card-preview">
                 <img src="images/bun_drop.png" alt="Aperçu Identité">
@@ -371,24 +385,38 @@
             </div>
         </div>
 
+        <!-- Carte 2 -->
         <div class="service-card reveal">
             <div class="card-preview">
                 <img src="images/CarteVisite.jpg" alt="Aperçu Print">
             </div>
             <div class="card-content">
-                <h3>Édition & Print</h3>
+                <h3>Édition &amp; Print</h3>
                 <p>Mise en page de brochures, flyers et affiches. Un design soigné de la conception à l'impression.</p>
                 <a href="contact.html" class="btn-service">En savoir plus</a>
             </div>
         </div>
 
+        <!-- Carte 3 -->
         <div class="service-card reveal">
             <div class="card-preview">
-                <img src="images/croowkies.png" alt="Aperçu Vidéo">
+                <img src="images/croowkies.png" alt="Aperçu Réseaux">
             </div>
             <div class="card-content">
                 <h3>Social Media</h3>
                 <p>Création de visuels et contenus vidéo courts (Reels/TikTok) pour dynamiser vos réseaux sociaux.</p>
+                <a href="contact.html" class="btn-service">En savoir plus</a>
+            </div>
+        </div>
+
+        <!-- Carte 4 -->
+        <div class="service-card reveal">
+            <div class="card-preview">
+                <img src="images/imgSunkiss1.png" alt="Aperçu Web">
+            </div>
+            <div class="card-content">
+                <h3>Intégration Web &amp; IA</h3>
+                <p>Développement de sites vitrines légers codés en HTML/CSS avec l'aide de l'IA et déployés via GitHub.</p>
                 <a href="contact.html" class="btn-service">En savoir plus</a>
             </div>
         </div>

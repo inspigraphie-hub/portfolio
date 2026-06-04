@@ -120,17 +120,16 @@
         }
 
         .poster {
-    position: relative;
-    cursor: pointer;
-    overflow: hidden;
-    border-radius: 20px;
-    /* On utilise l'aspect ratio pour le format A4 */
-    width: 100%;
-    aspect-ratio: 1 / 1.41; 
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s;
-}
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 20px;
+            width: 100%;
+            aspect-ratio: 1 / 1.41; 
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.4s;
+        }
 
         .poster img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .poster:hover { transform: translateY(-10px) scale(1.02); border-color: rgba(255, 255, 255, 0.4); }
@@ -219,108 +218,103 @@
         .close:hover { opacity: 1; }
 
         /* ===== RESPONSIVE MOBILE & TABLETTE ===== */
-@media (max-width: 950px) {
-    /* --- Header & Titre --- */
-    header { 
-        padding: 10px 20px; 
-        height: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+        @media (max-width: 950px) {
+            header { 
+                padding: 10px 20px; 
+                height: 70px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
 
-    .header-left img { 
-        width: 50px !important; 
-    }
+            .header-left img { 
+                width: 50px !important; 
+            }
 
-    .header-center { 
-        position: absolute; 
-        left: 50%; 
-        top: 50%;
-        transform: translate(-50%, -50%); /* Centrage mathématique parfait */
-        z-index: 5;
-    }
+            .header-center { 
+                position: absolute; 
+                left: 50%; 
+                top: 50%;
+                transform: translate(-50%, -50%); 
+                z-index: 5;
+            }
 
-    .header-center .logo-typo { 
-        font-size: 1.8rem; 
-        white-space: nowrap;
-    }
+            .header-center .logo-typo { 
+                font-size: 1.8rem; 
+                white-space: nowrap;
+            }
 
-    /* --- Navigation Mobile --- */
-    .hamburger { display: flex; z-index: 2100; }
-    .nav {
-        position: fixed;
-        top: 0; right: -100%; width: 100%; height: 100vh;
-        background: rgba(17, 17, 17, 0.98);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 30px;
-        transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-        z-index: 2000;
-    }
-    .nav.open { right: 0; }
-    .nav a { font-size: 2.2rem; }
+            .hamburger { display: flex; z-index: 2100; }
+            .nav {
+                position: fixed;
+                top: 0; right: -100%; width: 100%; height: 100vh;
+                background: rgba(17, 17, 17, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+                transition: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+                z-index: 2000;
+            }
+            .nav.open { right: 0; }
+            .nav a { font-size: 2.2rem; }
 
-    /* --- Galerie --- */
-    .gallery { 
-        grid-template-columns: repeat(2, 1fr); 
-        gap: 12px; 
-        padding: 20px 10px; 
-    }
-    .poster { height: auto; }
+            .gallery { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 12px; 
+                padding: 20px 10px; 
+            }
+            .poster { height: auto; }
 
-    /* --- MODALE (Correction du Centrage) --- */
-    .modal {
-        padding: 10px;
-        justify-content: center; /* Centre verticalement le contenu */
-    }
+            .modal {
+                padding: 10px;
+                justify-content: center; 
+            }
 
-    .modal-content-wrapper {
-        width: 100%;
-        max-width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+            .modal-content-wrapper {
+                width: 100%;
+                max-width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
 
-    #modal-img {
-        max-width: 100%;
-        max-height: 60vh; /* On réduit la hauteur pour laisser de la place au texte en dessous */
-        object-fit: contain;
-    }
+            #modal-img {
+                max-width: 100%;
+                max-height: 60vh; 
+                object-fit: contain;
+            }
 
-    /* Flèches sur Mobile */
-    .nav-arrow { 
-        font-size: 1.2rem; 
-        padding: 10px 12px; 
-        background: rgba(0, 0, 0, 0.5); /* Plus sombre pour être lisible sur l'image */
-        border: none;
-    }
-    .prev-arrow { left: 5px; }
-    .next-arrow { right: 5px; }
+            .nav-arrow { 
+                font-size: 1.2rem; 
+                padding: 10px 12px; 
+                background: rgba(0, 0, 0, 0.5); 
+                border: none;
+            }
+            .prev-arrow { left: 5px; }
+            .next-arrow { right: 5px; }
 
-    .modal-info {
-        width: 100%;
-        padding: 15px;
-        margin-top: 15px;
-        font-size: 0.9rem;
-    }
+            .modal-info {
+                width: 100%;
+                padding: 15px;
+                margin-top: 15px;
+                font-size: 0.9rem;
+            }
 
-    .close {
-        top: 15px;
-        right: 20px;
-        font-size: 40px;
-    }
-}
+            .close {
+                top: 15px;
+                right: 20px;
+                font-size: 40px;
+            }
+        }
 
-/* Ajustement pour les écrans minuscules */
-@media (max-width: 400px) {
-    .header-left { display: none; }
-    .header-center .logo-typo { font-size: 1.5rem; }
-}
+        /* Ajustement pour les écrans minuscules */
+        @media (max-width: 400px) {
+            .header-left { display: none; }
+            .header-center .logo-typo { font-size: 1.5rem; }
+        }
     </style>
 </head>
 
@@ -349,72 +343,116 @@
 
 <section class="gallery">
 
-<!-- ===================== Projets Perso ===================== -->
+<!-- ===================== Galerie de Projets (Ordre d'Origine) ===================== -->
 
-<div class="poster reveal" 
-     data-category="perso" 
-     data-title="Affiche match BAYERN-PSG" 
-     data-date="Avril 2026" 
-     data-temps="3h" 
+<div class="poster reveal"
+     data-category="client"
+     data-title="Site Vitrine - Client"
+     data-date="Mai 2026"
+     data-temps="5h"
+     data-description="Conception, intégration et déploiement d'un site vitrine de bijoux pour un client, optimisé pour le web et adapté à son identité visuelle.<br><br><a href='https://sunkissjewelry.github.io/Boutique-de-bijoux/index.html' target='_blank' style='color: #fff; text-decoration: underline; font-weight: bold;'>→ Visiter le site en ligne ↗</a>"
+     data-images="images/imgSunkiss2.png,images/imgSunkiss3.png,images/imgSunkiss4.png,images/imgSunkiss5.png,images/imgSunkiss6.png">
+     
+     <img src="images/imgSunkiss1.png" alt="Aperçu du site client" loading="lazy">
+     <span class="title">Création de site vitrine complet</span>
+</div>
+
+<div class="poster reveal"
+     data-category="client"
+     data-title="Visuels publicitaires - Bijoux"
+     data-date="Mai 2026"
+     data-temps="1h"
+     data-description="Création d'une série de visuels promotionnels et graphiques pour une marque de bijoux, optimisés pour la mise en valeur des produits sur les canaux de communication du client."
+     data-images="images/Sunkiss.jpg,images/SunkissNew.jpg">
+     
+     <img src="images/Sunkiss.jpg" alt="Visuel bijoux" loading="lazy">
+     <span class="title">Visuels promotionnels (Bijoux)</span>
+</div>
+
+<div class="poster reveal"
+     data-category="client"
+     data-title="Identité Visuelle &amp; Déclinaisons Logo"
+     data-date="Mai 2026"
+     data-temps="2h"
+     data-description="Création du logo principal et développement de ses déclinaisons graphiques (variantes de couleurs, formats et icônes) pour assurer une communication homogène sur tous les supports du client."
+     data-images="images/sunkisslogo1.jpg,images/sunkisslogo2.jpg,images/sunkisslogo3.jpg,images/sunkisslogo4.jpg,images/sunkisspres.jpg">
+     
+     <img src="images/sunkisslogo1.jpg" alt="Déclinaisons logo client" loading="lazy">
+     <span class="title">Création et déclinaisons de logo</span>
+</div>
+
+<div class="poster reveal"
+     data-category="perso"
+     data-title="Affiche de Film - Michael Jackson"
+     data-date="Avril 2026"
+     data-temps="3h"
+     data-description="Projet personnel de conception d'une affiche de film hommage à Michael Jackson. Travail approfondi sur la composition graphique, les contrastes de lumière et le traitement d'image pour retransmettre l'ambiance et l'aura de l'artiste.">
+     
+     <img src="images/mj11.jpg" alt="Affiche film Michael Jackson" loading="lazy">
+     <span class="title">Affiche de film (Michael Jackson)</span>
+</div>
+
+<div class="poster reveal"
+     data-category="perso"
+     data-title="Affiche match BAYERN-PSG"
+     data-date="Avril 2026"
+     data-temps="3h"
      data-description="Création d'une affiche pour le match entre le PSG et le Bayern de Munich.">
      
      <img src="images/psgbayern2.jpg" alt="Affiche Match BAYERN-PSG " loading="lazy">
      <span class="title">Affiche match BAYERN-PSG</span>
 </div>
 
-
-<div class="poster reveal" 
-     data-category="perso" 
-     data-title="Dessin Guts" 
-     data-date="Mai 2026" 
-     data-temps="3h" 
-     data-description="Dessin du personnage Guts du manga Berserk, fais  la main puis retouché à l'aide d'une tablette graphique.">
+<div class="poster reveal"
+     data-category="perso"
+     data-title="Dessin Guts"
+     data-date="Mai 2026"
+     data-temps="3h"
+     data-description="Dessin du personnage Guts du manga Berserk, fait à la main puis retouché à l'aide d'une tablette graphique.">
      
      <img src="images/guts.jpg" alt="guts" loading="lazy">
      <span class="title">Dessin Berserk - dessin papier/numerique</span>
 </div>
 
-<div class="poster reveal" 
-     data-category="client" 
-     data-title="Logo podcast" 
-     data-date="Avril 2026" 
-     data-temps="1h" 
+<div class="poster reveal"
+     data-category="client"
+     data-title="Logo podcast"
+     data-date="Avril 2026"
+     data-temps="1h"
      data-description="Création d'un logo pour un podcast.">
      
      <img src="images/grimPlan de travail 3-100.jpg" alt="logo podcast" loading="lazy">
      <span class="title">Logo - podcast</span>
 </div>
 
-
-<div class="poster reveal" 
-     data-category="scolaire" 
-     data-title="Signature de mail" 
-     data-date="Avril 2026" 
-     data-temps="1h" 
-     data-description="Création d'une signature de mail pour une association qui organise un festival de thêatre.">
+<div class="poster reveal"
+     data-category="scolaire"
+     data-title="Signature de mail"
+     data-date="Avril 2026"
+     data-temps="1h"
+     data-description="Création d'une signature de mail pour une association qui organise un festival de théâtre.">
      
      <img src="images/signature_mail_V1-2.jpg" alt="signature de mail" loading="lazy">
      <span class="title">Signature de mail</span>
 </div>
 
-<div class="poster reveal" 
-     data-category="scolaire" 
-     data-title="Logo boutique de maillot de foot" 
-     data-date="Avril 2026" 
-     data-temps="1h" 
-     data-description="Création d'un logo pour une boutique de maillot de foot fictive 'JerZ' en cours d'anglais professionel dans le travail des significations des couleurs."
+<div class="poster reveal"
+     data-category="scolaire"
+     data-title="Logo boutique de maillot de foot"
+     data-date="Avril 2026"
+     data-temps="1h"
+     data-description="Création d'un logo pour une boutique de maillot de foot fictive 'JerZ' en cours d'anglais professionnel dans le travail des significations des couleurs."
      data-images="images/jerzvf.jpg,images/jerzvf2.jpg">
      
      <img src="images/jerzvf.jpg" alt="logo JerZ " loading="lazy">
      <span class="title">Logo boutique de maillot de foot fictive</span>
 </div>
 
-
-<div class="poster reveal" 
-     data-category="perso" 
-     data-title="affiche chelsea-psg" 
-     data-date="Avril 2026" 
-     data-temps="2h" 
+<div class="poster reveal"
+     data-category="perso"
+     data-title="affiche chelsea-psg"
+     data-date="Avril 2026"
+     data-temps="2h"
      data-description="Création d'une affiche pour le match entre Chelsea et le PSG."
      data-images="images/chelseapsg.jpg">
      
@@ -422,12 +460,11 @@
      <span class="title">Affiche match CHELSEA-PSG</span>
 </div>
 
-
-<div class="poster reveal" 
-     data-category="client" 
-     data-title="Maillot e-sport" 
-     data-date="Avril 2026" 
-     data-temps="4h" 
+<div class="poster reveal"
+     data-category="client"
+     data-title="Maillot e-sport"
+     data-date="Avril 2026"
+     data-temps="4h"
      data-description="Création d'un maillot pour une structure e-sport."
      data-images="images/maillotv2colrond.png,images/maillotv2back.png">
      
@@ -435,45 +472,40 @@
      <span class="title">Maillot e-sport</span>
 </div>
 
-<div class="poster reveal" 
-     data-category="client" 
-     data-title="Tiram" 
-     data-date="Mai2026" 
-     data-temps="3h" 
-     data-description="Création d'un log, d'un visuel et d'une carte pour un commerce de vente de tiramisus.."
+<div class="poster reveal"
+     data-category="client"
+     data-title="Tiram"
+     data-date="Mai 2026"
+     data-temps="3h"
+     data-description="Création d'un logo, d'un visuel et d'une carte pour un commerce de vente de tiramisus.."
      data-images="images/Plan de travail 2-100.jpg,images/tiram2.png,images/tiram.png">
      
      <img src="images/tiram2.png" alt="logo visuel carte " loading="lazy">
      <span class="title">Logo - visuel - carte</span>
 </div>
-<div class="poster reveal" 
-     data-category="scolaire" 
-     data-title="carte" 
-     data-date="Avril 2026" 
-     data-temps="5h" 
-     data-description="Création de cartes de jeu style Pokémon, sur l'IA. C'était un projet de la classe, tout le monde avait des creatures à générer avec des IA, pour répondre à des problématiques. Puis je me suis occupé de la mise en page d'une vingtaine de carte en utilisant la fusion de données.">
+
+<div class="poster reveal"
+     data-category="scolaire"
+     data-title="carte"
+     data-date="Avril 2026"
+     data-temps="5h"
+     data-description="Création de cartes de jeu style Pokémon, sur l'IA. C'était un projet de la classe, tout le monde avait des créatures à générer avec des IA, pour répondre à des problématiques. Puis je me suis occupé de la mise en page d'une vingtaine de cartes en utilisant la fusion de données.">
      
      <img src="images/carteMonde.png" alt="carte" loading="lazy">
      <span class="title">Cartes de jeu</span>
 </div>
 
-
-
-
-
-<div class="poster reveal" 
-     data-category="perso" 
-     data-title="Affiche publicitaire fictive" 
-     data-date="Janvier 2026" 
-     data-temps="6h" 
+<div class="poster reveal"
+     data-category="perso"
+     data-title="Affiche publicitaire fictive"
+     data-date="Janvier 2026"
+     data-temps="6h"
      data-description="Création d'une affiche publicitaire (fictive) pour une boisson de la marque Embrace London."
      data-images="images/posticetea_01.gif,images/posticetea_02.gif,images/posticetea_03.gif,images/posticetea_04.gif,images/posticetea_05.gif">
      
      <img src="images/icetea.jpg" alt="Affiche fictive " loading="lazy">
      <span class="title">Affiche publicitaire fictive</span>
 </div>
-
-
 
 <div class="poster" data-category="perso" data-title="La La Land" data-date="Octobre 2025" data-temps="1h"
     data-description="Poster du film La La Land.">
@@ -492,7 +524,6 @@
     <img src="images/fifa.png" alt="PSG - Tottenham" loading="lazy">
     <span class="title">PSG - Tottenham</span>
 </div>
-
 
 <div class="poster" data-category="perso" data-title="PSG - Chelsea" data-date="Juillet 2025" data-temps="2h" data-description="Affiche pour la finale de la Coupe du Monde des Clubs entre le PSG et Chelsea.">
   <img src="images/test1.png" alt="Lille - PSG" loading="lazy">
@@ -548,7 +579,7 @@
 </div>
 
 <div class="poster" data-category="perso" data-title="Fight Club" data-date="Mars 2025" data-temps="2h"
-    data-description="Affiche inspirée du film Fight Club, travail sur la double identité.">
+    data-description="Affiche inspirée du film Fight Club, travail sur la double identity.">
     <img src="images/fight-club.png" alt="Fight Club" loading="lazy">
     <span class="title">Fight Club</span>
 </div>
@@ -626,11 +657,11 @@
 </div>
 
 <!-- ===================== Projets Clients ===================== -->
-<div class="poster reveal" 
-     data-category="client" 
-     data-title="Flyers Croowkies" 
-     data-date="Février 2026" 
-     data-temps="6h" 
+<div class="poster reveal"
+     data-category="client"
+     data-title="Flyers Croowkies"
+     data-date="Février 2026"
+     data-temps="6h"
      data-description="Création de plusieurs flyers pour la boulangerie Croowkies. Le client voulait reproduire la nouvelle pub de Quick en collaboration avec Avengers."
      data-images="images/mmscroowkies.jpg,images/oreocroowkies.jpg,images/tiramisucroowkies.jpg,images/croowkiespub.jpg,images/croowkiespub2.jpg,images/ramadan.png">
      
@@ -638,11 +669,11 @@
      <span class="title">Visuel pour les Croowkies (pack2)</span>
 </div>
 
-<div class="poster reveal" 
-     data-category="client" 
-     data-title="carte fidelite" 
-     data-date="Octobre 2025" 
-     data-temps="1h" 
+<div class="poster reveal"
+     data-category="client"
+     data-title="carte fidelite"
+     data-date="Octobre 2025"
+     data-temps="1h"
      data-description="Création d'une carte de fidélité (2 propositions)."
      data-images="images/carte fidelite v2.png,images/carte fidelite 2 v2.png,images/carte fide2.png,images/carte fide v2.png">
      
@@ -650,12 +681,11 @@
      <span class="title">Carte de fidélité pour les Croowkies (pack2)</span>
 </div>
 
-
-<div class="poster reveal" 
-     data-category="client" 
-     data-title="Flyers Croowkies" 
-     data-date="Février 2026" 
-     data-temps="6h" 
+<div class="poster reveal"
+     data-category="client"
+     data-title="Flyers Croowkies"
+     data-date="Février 2026"
+     data-temps="6h"
      data-description="Création de plusieurs flyers pour la boulangerie Croowkies. Respect de la charte beige et marron."
      data-images="images/mmscroowkies.jpg,images/oreocroowkies.jpg,images/tiramisucroowkies.jpg,images/croowkiespub.jpg,images/croowkiespub2.jpg,images/ramadan.png">
      
@@ -663,19 +693,17 @@
      <span class="title">Visuel pour les Croowkies (pack2)</span>
 </div>
 
-
-<div class="poster reveal" 
-     data-category="client" 
-     data-title="Flyers Croowkies" 
-     data-date="Mai 2025" 
-     data-temps="6h" 
+<div class="poster reveal"
+     data-category="client"
+     data-title="Flyers Croowkies"
+     data-date="Mai 2025"
+     data-temps="6h"
      data-description="Création de plusieurs flyers pour la boulangerie Croowkies. Respect de la charte beige et marron."
      data-images="images/cookies1.png,images/cookies2.png,images/COOKIES1v2.png,images/COOKIES5V2.png,images/COOKIES3v2.png,images/cookies4.png">
      
      <img src="images/croowkies.png" alt="Flyers Croowkies" loading="lazy">
      <span class="title">Flyers Croowkies (pack 1)</span>
 </div>
-
 
 <div class="poster" data-category="client" data-title="minia fortnite" data-date="Septembre 2025" data-temps="2h" data-description="Miniature YouTube pour un compte fortnite.">
   <img src="images/minia2 (1).png" alt="minia fortnite 3" loading="lazy">
@@ -686,31 +714,23 @@
   <img src="images/Design sans titre (9).png" alt="minia fortnite" loading="lazy">
   <span class="title">Miniature Fortnite 2 </span>
 </div>
+
 <div class="poster" data-category="client" data-title="minia fortnite" data-date="Septembre 2025" data-temps="2h" data-description="Miniature YouTube pour un compte fortnite.">
   <img src="images/elitechamp (2).png" alt="minia fortnite 1" loading="lazy">
   <span class="title">Miniature Fortnite 1 </span>
 </div>
 
-
-<div class="poster reveal" 
-     data-category="client" 
-     data-title="visuel maillot" 
-     data-date="Juin 2025" 
-     data-temps="30min" 
+<div class="poster reveal"
+     data-category="client"
+     data-title="visuel maillot"
+     data-date="Juin 2025"
+     data-temps="30min"
      data-description="Création de plusieurs visuel pour mettre en avant des maillots de football, pour un compte tiktok."
      data-images="images/lever.png,images/sporting.png,images/galatasaray.png">
      
      <img src="images/lever.png" alt="Flyers Croowkies" loading="lazy">
      <span class="title">Visuels maillots</span>
 </div>
-
-
-
-
-
-
-
-
 
 <div class="poster" data-category="client" data-title="Lille - PSG" data-date="Septembre 2024" data-temps="2h" data-description="Affiche pour un compte de football. Composition dynamique et contrastée.">
   <img src="images/LILLE-PSG.png" alt="Lille - PSG" loading="lazy">
@@ -825,7 +845,6 @@
 <div class="poster" data-category="perso" data-title="BUN DROP PROJECT" data-date="Décembre 2025" data-pdf="PROJET.pdf">
     <img src="images/bun_drop.png" alt="BUN DROP PROJECT" loading="lazy">
     <span class="title">BUN DROP — Projet</span>
-
 </div>
 
 <div class="poster" data-category="scolaire" data-title="Carte de visite" data-date="Janvier 2026" data-temps="2h" data-description="Création de cartes de visite pour ma promo de BTS ERPC, personnalisé pour chaque élève. Découverte de la fusion de donnée sur InDesign.">
@@ -838,8 +857,6 @@
   <span class="title">Brochure 4 pages</span>
 </div>
 
-
-
 <div class="poster" data-category="scolaire" data-title="flyer pomme" data-date="Octobre 2025" data-temps="1h" data-description="Création d'un flyer pour un exercice, sur un évènement fictif.">
   <img src="images/flyers-Récupéré.png" alt="flyer pomme" loading="lazy">
   <span class="title">Flyer Fictif </span>
@@ -850,12 +867,11 @@
   <span class="title">Couverture roman</span>
 </div>
 
-
 </section>
 
 <div class="modal" id="modal">
     <span class="close">&times;</span>
-    
+   
     <div class="modal-content-wrapper">
         <div class="nav-arrow prev-arrow" id="prev-btn">&#10094;</div>
         <img id="modal-img" src="" alt="">
@@ -865,7 +881,7 @@
     <div class="modal-info">
         <h2 id="modal-title"></h2>
         <p id="modal-date"></p>
-        <p id="modal-desc"></p>
+        <div id="modal-desc"></div> <!-- Remplacement de <p> par un <div> pour accueillir le lien HTML proprement -->
     </div>
 </div>
 
@@ -913,7 +929,9 @@ document.querySelectorAll(".poster").forEach(poster => {
 
         document.getElementById("modal-title").textContent = poster.dataset.title || "";
         document.getElementById("modal-date").textContent = poster.dataset.date || "";
-        document.getElementById("modal-desc").textContent = poster.dataset.description || "";
+        
+        // innerHTML à la place de textContent pour interpréter correctement la balise <a> du lien externe !
+        document.getElementById("modal-desc").innerHTML = poster.dataset.description || "";
 
         modal.style.display = "flex";
         document.body.style.overflow = "hidden"; // Bloque le scroll
@@ -959,8 +977,6 @@ filterBtns.forEach(btn => {
             if (filter === "all" || p.dataset.category === filter) {
                 p.style.display = ""; // On affiche
                 
-                // Optionnel : On relance l'animation pour qu'ils 
-                // apparaissent dans l'ordre de la grille
                 setTimeout(() => {
                     p.classList.add('active');
                 }, 10);
